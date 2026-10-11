@@ -1,4 +1,4 @@
-from Automation_Test import Web_Automation_Test
+from Automation_Test_Method import Web_Automation_Test
 
 Web_Test = Web_Automation_Test()
 
