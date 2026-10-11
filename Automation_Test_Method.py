@@ -37,10 +37,7 @@ class Web_Automation_Test:
     @Try_Except
     def Login(self, Type = None):
         user_type ={"standard" : "standard_user",
-                    "locked" : "locked_out_user",
-                    "not_account" : "abcde",
-                    "problem" : "problem_user",
-                    "performance" : "performance_glitch_user"}
+                    "not_account" : "abcde",}
         
         self.page.get_by_placeholder("Username").fill(user_type[Type])
         self.page.get_by_placeholder("Password").fill("secret_sauce")

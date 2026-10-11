@@ -6,7 +6,7 @@ Web_Test = Web_Automation_Test()
 #홈페이지 열기
 Web_Test.Open_Url("https://www.saucedemo.com/")
 
-####홈페이지 로그인####
+####홈페이지 로그인 > 상품 구매 시나리오####
 
 #등록되지 않은 계정 로그인 시도
 Web_Test.Login("not_account")
