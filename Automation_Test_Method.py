@@ -31,7 +31,6 @@ class Web_Automation_Test:
         self.page = self_context.new_page()
         self.page.set_default_timeout(5000)
 
-
     def Open_Url(self, Url):
         self.page.goto(Url)
 
@@ -60,22 +59,15 @@ class Web_Automation_Test:
         time.sleep(common_delay)
 
     @Try_Except
-    def Purchase_item(self, item_id = None, Type = None):
+    def Purchase_item(self, item_num = None, Type = None):
         if(Type == "Detail"):
-            item = {"0" : "inventory-item-sauce-labs-bike-light-img",
-                    "1" : "inventory-item-sauce-labs-bolt-t-shirt-img",
-                    "2" : "inventory-item-sauce-labs-onesie-img",
-                    "3" : "inventory-item-test.allthethings()-t-shirt-(red)-img",
-                    "4" : "inventory-item-sauce-labs-backpack-img",
-                    "5" : "inventory-item-sauce-labs-fleece-jacket-img"}
-            
-            self.page.locator(f'[data-test="{item[item_id]}"]').click()
+            self.page.locator(".inventory_item_img").nth(item_num).click()
             self.page.locator('[data-test="add-to-cart"]').click()
 
         elif(Type == "List"):
-            self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(item_id).click()
-            self.page.locator(".btn.btn_secondary.btn_small.btn_inventory").nth(item_id).click()
-            self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(item_id).click()
+            self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(item_num).click()
+            self.page.locator(".btn.btn_secondary.btn_small.btn_inventory").nth(item_num).click()
+            self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(item_num).click()
 
         expect(self.page.locator('[data-test="shopping-cart-badge"]')).to_be_visible()
 

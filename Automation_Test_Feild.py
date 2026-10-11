@@ -13,7 +13,7 @@ Web_Test.Login("standard")
 Web_Test.Check_Item_Images()
 
 #상품 구매
-Web_Test.Purchase_item(0, "List")
+Web_Test.Purchase_item(0, "Detail")
 
 #홈페이지 로그아웃
 Web_Test.Logout()
