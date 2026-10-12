@@ -37,13 +37,20 @@ class Web_Method:
     @Try_Except
     def Login(self, Type = None):
         user_type ={"standard" : "standard_user",
-                    "not_account" : "abcde",}
+                    "not_account" : "abcde",
+                    "problem" : "problem_user",
+                    "error" : "error_user",
+                    "locked" : "locked_out_user",
+                    "performance" : "performance_glitch_user"}
         
         self.page.get_by_placeholder("Username").fill(user_type[Type])
         self.page.get_by_placeholder("Password").fill("secret_sauce")
         self.page.locator('[data-test="login-button"]').nth(0).click()
+
         if(Type == "not_account"): expect(self.page.locator('[data-test="error"]')).to_contain_text("Epic sadface: Username and password do not match any user in this service")
-        else : expect(self.page).to_have_url("https://www.saucedemo.com/inventory.html")
+        elif(Type == "locked"): expect(self.page.locator('[data-test="error"]')).to_contain_text("Epic sadface: Sorry, this user has been locked out.")
+        else: expect(self.page).to_have_url("https://www.saucedemo.com/inventory.html")
+
         time.sleep(common_delay)
 
     @Try_Except
@@ -94,6 +101,11 @@ class Web_Method:
         self.page.locator('[data-test="back-to-products"]').click()
         expect(self.page).to_have_url("https://www.saucedemo.com/inventory.html")
         time.sleep(common_delay)
+
+    @Try_Except
+    def Error_Account_Item_Select(self):
+        self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(0).click()
+        self.page.locator(".btn.btn_secondary.btn_small.btn_inventory").nth(0).click()
 
     @Try_Except
     def Check_Item_Images(self):
