@@ -6,7 +6,7 @@ common_delay = 3
 
 def Try_Except(func):
     @functools.wraps(func)
-    def wrapper(self:Web_Automation_Test, *args, **kwargs):
+    def wrapper(self:Web_Method, *args, **kwargs):
         title = func.__name__
         try:
             result = func(self, *args, **kwargs)
@@ -20,7 +20,7 @@ def Try_Except(func):
     return wrapper
 
 
-class Web_Automation_Test:
+class Web_Method:
 
     def __init__(self):
 
