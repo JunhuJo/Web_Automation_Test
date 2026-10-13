@@ -14,7 +14,6 @@ def Try_Except(func):
             return result
         except Exception as log:
             print(f"Fail : {title}")
-            #self.page.screenshot()
             print(log)
             raise
     return wrapper
@@ -38,10 +37,8 @@ class Web_Method:
     def Login(self, Type = None):
         user_type ={"standard" : "standard_user",
                     "not_account" : "abcde",
-                    "problem" : "problem_user",
-                    "error" : "error_user",
                     "locked" : "locked_out_user",
-                    "performance" : "performance_glitch_user"}
+                    }
         
         self.page.get_by_placeholder("Username").fill(user_type[Type])
         self.page.get_by_placeholder("Password").fill("secret_sauce")
@@ -63,15 +60,10 @@ class Web_Method:
         time.sleep(common_delay)
 
     @Try_Except
-    def Purchase_item(self, item_num = None, Type = None):
-        if(Type == "Detail"):
-            self.page.locator(".inventory_item_img").nth(item_num).click()
-            self.page.locator('[data-test="add-to-cart"]').click()
-
-        elif(Type == "List"):
-            self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(item_num).click()
-            self.page.locator(".btn.btn_secondary.btn_small.btn_inventory").nth(item_num).click()
-            self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(item_num).click()
+    def Purchase_item(self, item_num = None):
+        
+        self.page.locator("img.inventory_item_img").nth(item_num).click()
+        self.page.locator('[data-test="add-to-cart"]').click()
 
         expect(self.page.locator('[data-test="shopping-cart-badge"]')).to_be_visible()
 
@@ -103,12 +95,7 @@ class Web_Method:
         time.sleep(common_delay)
 
     @Try_Except
-    def Error_Account_Item_Select(self):
-        self.page.locator(".btn.btn_primary.btn_small.btn_inventory").nth(0).click()
-        self.page.locator(".btn.btn_secondary.btn_small.btn_inventory").nth(0).click()
-
-    @Try_Except
     def Check_Item_Images(self):
         images = self.page.locator('img.inventory_item_img')
         srcs = [images.nth(i).get_attribute("src") for i in range(images.count())]
-        assert len(set(srcs)) == len(srcs), print(f"중복된 상품 이미지가 있습니다: {srcs}")
+        assert len(set(srcs)) == len(srcs), f"중복된 상품 이미지가 있습니다: {srcs}"

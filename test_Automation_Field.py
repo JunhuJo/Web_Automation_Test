@@ -12,29 +12,15 @@ def test_locked_account_login(web):
 def test_standard_login(web):
     web.Login("standard")
     
-
-#상품 이미지 중복 계정
-def test_problem_account_login(web):
-    web.Login("problem")
+#상품 이미지 중복 체크
+def test_check_item_images(web):
+    web.Login("standard")
     web.Check_Item_Images()
-
-#성능 저하 계정
-def test_performance_account_login(web):
-    web.Login("performance")
-
-#장바구니 담기 불가 계정
-def test_error_account_login(web):
-    web.Login("error")
-    web.Error_Account_Item_Select()
-
-
-
-
 
 #상품 구매
 def test_purchase(web):
     web.Login("standard")
-    web.Purchase_item(0, "Detail")
+    web.Purchase_item(0)
 
 #로그아웃
 def test_logout(web):
